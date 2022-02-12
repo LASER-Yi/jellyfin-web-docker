@@ -38,6 +38,10 @@ jobs:
       - name: Build
         run: npm run build:production
 
+      - name: Create 404 page
+        run: |
+          wget https://raw.githubusercontent.com/${{ github.repository }}/main/pages/404.html -O dist/404.html
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
