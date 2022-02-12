@@ -1,0 +1,45 @@
+name: build-and-deploy
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 */1 * *'
+
+env:
+  ARTIFACT_NAME: site
+  BUILD_DIRECTORY: "./dist"
+  SKIP_PREPARE: 1
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: jellyfin/jellyfin-web
+          ref: master
+
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: "node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.os }}-modules-
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build:production
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: dist
