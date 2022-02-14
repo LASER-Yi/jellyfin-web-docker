@@ -5,13 +5,17 @@ on:
   schedule:
     - cron: '0 0 */1 * *'
 
+strategy:
+  matrix:
+    branch: ['master', 'release-10.7.z']
+
 env:
   REPO_PATH: ./repo
   BUILD_DIRECTORY: ./repo/dist
   SKIP_PREPARE: 1
 
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +25,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: jellyfin/jellyfin-web
-          ref: master
+          ref: ${{ matrix.branch }}
           path: ${{ env.REPO_PATH }}
 
       - name: Cache node_modules
@@ -53,6 +57,7 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
-          branch: gh-pages
+          branch: build
           folder: ${{ env.BUILD_DIRECTORY }}
+          target-folder: ${{ matrix.branch }}
           clean: true
