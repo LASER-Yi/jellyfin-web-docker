@@ -25,7 +25,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: master
           path: ${{ env.LOCAL_PATH }}
 
       - name: Cache node_modules
