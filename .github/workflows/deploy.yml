@@ -6,9 +6,8 @@ on:
     - cron: '0 0 */1 * *'
 
 env:
-  REPO_PATH: ./jellyfin-web
-  BUILD_DIRECTORY: dist
-  LOCAL_PATH: ./local
+  REPO_PATH: ./repo
+  BUILD_DIRECTORY: ./repo/dist
   SKIP_PREPARE: 1
 
 jobs:
@@ -17,22 +16,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Checkout Jellyfin-Web
+        uses: actions/checkout@v2
         with:
           repository: jellyfin/jellyfin-web
           ref: master
           path: ${{ env.REPO_PATH }}
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          path: ${{ env.LOCAL_PATH }}
 
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
           path: '${{ env.REPO_PATH }}/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('${{ env.REPO_PATH }}/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-modules-
+          restore-keys: ${{ runner.os }}-modules-no-hit
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -46,18 +43,16 @@ jobs:
       - name: Build
         run: |
           npm run build:production
-          cp -r $BUILD_DIRECTORY ../$LOCAL_PATH
         working-directory: ${{ env.REPO_PATH }}
 
       - name: Apply Modifications
         run: |
           cp pages/404.html $BUILD_DIRECTORY
           cp headers/_headers $BUILD_DIRECTORY
-        working-directory: ${{ env.LOCAL_PATH }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: gh-pages
-          folder: ${{ env.LOCAL_PATH }}/${{ env.BUILD_DIRECTORY }}
-          workspace: ${{ env.LOCAL_PATH }}
+          folder: ${{ env.BUILD_DIRECTORY }}
+          clean: true
