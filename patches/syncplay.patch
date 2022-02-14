@@ -1,0 +1,24 @@
+diff --git a/src/components/syncPlay/core/PlaybackCore.js b/src/components/syncPlay/core/PlaybackCore.js
+index a47872e..be16eca 100644
+--- a/src/components/syncPlay/core/PlaybackCore.js
++++ b/src/components/syncPlay/core/PlaybackCore.js
+@@ -49,16 +49,16 @@ class PlaybackCore {
+      */
+     loadPreferences() {
+         // Minimum required delay for SpeedToSync to kick in, in milliseconds.
+-        this.minDelaySpeedToSync = toFloat(getSetting('minDelaySpeedToSync'), 60.0);
++        this.minDelaySpeedToSync = toFloat(getSetting('minDelaySpeedToSync'), 1000.0);
+ 
+         // Maximum delay after which SkipToSync is used instead of SpeedToSync, in milliseconds.
+-        this.maxDelaySpeedToSync = toFloat(getSetting('maxDelaySpeedToSync'), 3000.0);
++        this.maxDelaySpeedToSync = toFloat(getSetting('maxDelaySpeedToSync'), 5000.0);
+ 
+         // Time during which the playback is sped up, in milliseconds.
+         this.speedToSyncDuration = toFloat(getSetting('speedToSyncDuration'), 1000.0);
+ 
+         // Minimum required delay for SkipToSync to kick in, in milliseconds.
+-        this.minDelaySkipToSync = toFloat(getSetting('minDelaySkipToSync'), 400.0);
++        this.minDelaySkipToSync = toFloat(getSetting('minDelaySkipToSync'), 5000.0);
+ 
+         // Whether SpeedToSync should be used.
+         this.useSpeedToSync = toBoolean(getSetting('useSpeedToSync'), true);
