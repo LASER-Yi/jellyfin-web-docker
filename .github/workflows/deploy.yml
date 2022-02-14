@@ -6,9 +6,9 @@ on:
     - cron: '0 0 */1 * *'
 
 env:
-  REPO_PATH: ${{ env.GITHUB_WORKSPACE }}/jellyfin-web
+  REPO_PATH: ./jellyfin-web
   BUILD_DIRECTORY: dist
-  LOCAL_PATH: ${{ env.GITHUB_WORKSPACE }}/local
+  LOCAL_PATH: ./local
   SKIP_PREPARE: 1
 
 jobs:
@@ -46,7 +46,7 @@ jobs:
       - name: Build
         run: |
           npm run build:production
-          cp -r $BUILD_DIRECTORY $LOCAL_PATH
+          cp -r $BUILD_DIRECTORY ../$LOCAL_PATH
         working-directory: ${{ env.REPO_PATH }}
 
       - name: Apply Modifications
