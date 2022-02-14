@@ -6,9 +6,9 @@ on:
     - cron: '0 0 */1 * *'
 
 env:
-  REPO_PATH: ${{ env.GITHUB_WORKSPACE }}/jellyfin-web
-  BUILD_DIRECTORY: ${{ env.GITHUB_WORKSPACE }}/jellyfin-web/dist
-  LOCAL_PATH: ${{ env.GITHUB_WORKSPACE }}/local
+  REPO_PATH: ./jellyfin-web
+  BUILD_DIRECTORY: ./jellyfin-web/dist
+  LOCAL_PATH: ./local
   SKIP_PREPARE: 1
 
 jobs:
