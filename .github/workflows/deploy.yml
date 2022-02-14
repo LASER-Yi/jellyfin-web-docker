@@ -6,8 +6,7 @@ on:
     - cron: '0 0 */1 * *'
 
 env:
-  ARTIFACT_NAME: site
-  BUILD_DIRECTORY: "./dist"
+  BUILD_DIRECTORY: ./dist
   SKIP_PREPARE: 1
 
 jobs:
@@ -23,7 +22,7 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
-          path: "node_modules"
+          path: 'node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-modules-
 
@@ -38,12 +37,13 @@ jobs:
       - name: Build
         run: npm run build:production
 
-      - name: Create 404 page
+      - name: Apply Modifications
         run: |
-          wget https://raw.githubusercontent.com/${{ github.repository }}/main/pages/404.html -O dist/404.html
+          wget https://raw.githubusercontent.com/${{ github.repository }}/main/pages/404.html -O ${BUILD_DIRECTORY}/404.html
+          cp headers/_headers $BUILD_DIRECTORY
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: gh-pages
-          folder: dist
+          folder: ${{ env.BUILD_DIRECTORY }}
