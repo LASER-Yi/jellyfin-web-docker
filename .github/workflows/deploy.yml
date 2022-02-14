@@ -40,7 +40,7 @@ jobs:
       - name: Apply Modifications
         run: |
           wget https://raw.githubusercontent.com/${{ github.repository }}/main/pages/404.html -O ${BUILD_DIRECTORY}/404.html
-          cp headers/_headers $BUILD_DIRECTORY
+          wget https://raw.githubusercontent.com/${{ github.repository }}/main/headers/_headers -O ${BUILD_DIRECTORY}/_headers
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
