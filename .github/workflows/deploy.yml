@@ -6,9 +6,9 @@ on:
     - cron: '0 0 */1 * *'
 
 env:
-  REPO_PATH: ./jellyfin-web
-  BUILD_DIRECTORY: ./jellyfin-web/dist
-  LOCAL_PATH: ./local
+  REPO_PATH: ${{ env.GITHUB_WORKSPACE }}/jellyfin-web
+  BUILD_DIRECTORY: dist
+  LOCAL_PATH: ${{ env.GITHUB_WORKSPACE }}/local
   SKIP_PREPARE: 1
 
 jobs:
@@ -44,17 +44,20 @@ jobs:
         working-directory: ${{ env.REPO_PATH }}
 
       - name: Build
-        run: npm run build:production
+        run: |
+          npm run build:production
+          cp -r $BUILD_DIRECTORY $LOCAL_PATH
         working-directory: ${{ env.REPO_PATH }}
 
       - name: Apply Modifications
         run: |
-          cp $LOCAL_PATH/pages/404.html $BUILD_DIRECTORY
-          cp $LOCAL_PATH/headers/_headers $BUILD_DIRECTORY
+          cp pages/404.html $BUILD_DIRECTORY
+          cp headers/_headers $BUILD_DIRECTORY
+        working-directory: ${{ env.LOCAL_PATH }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: gh-pages
           folder: ${{ env.BUILD_DIRECTORY }}
-          workspace: ${{ env.REPO_PATH }}
+          workspace: ${{ env.LOCAL_PATH }}
