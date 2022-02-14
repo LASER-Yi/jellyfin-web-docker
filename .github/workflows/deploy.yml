@@ -5,10 +5,6 @@ on:
   schedule:
     - cron: '0 0 */1 * *'
 
-strategy:
-  matrix:
-    branch: ['master', 'release-10.7.z']
-
 env:
   REPO_PATH: ./repo
   BUILD_DIRECTORY: ./repo/dist
@@ -16,6 +12,10 @@ env:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        branch: ['master', 'release-10.7.z']
+    concurrency: branch-${{ matrix.branch }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
