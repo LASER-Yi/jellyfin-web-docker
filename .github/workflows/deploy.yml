@@ -49,10 +49,9 @@ jobs:
           npm run build:production
         working-directory: ${{ env.REPO_PATH }}
 
-      - name: Apply Modifications
+      - name: Setting up Cloudflare
         run: |
-          cp pages/404.html $BUILD_DIRECTORY
-          cp headers/_headers $BUILD_DIRECTORY
+          cp -r pages/. $BUILD_DIRECTORY
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
