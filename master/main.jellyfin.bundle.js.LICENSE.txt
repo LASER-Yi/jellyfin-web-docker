@@ -37,6 +37,8 @@ object-assign
 
 /*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
 
+/*! @source https://gist.github.com/1129031 */
+
 /**
  * @license
  * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
