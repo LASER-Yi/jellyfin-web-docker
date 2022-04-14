@@ -14,7 +14,7 @@ jobs:
   build:
     strategy:
       matrix:
-        branch: ['master', 'release-10.7.z']
+        branch: ['master', 'release-10.8.z', 'release-10.7.z']
     concurrency: branch-${{ matrix.branch }}
     runs-on: ubuntu-latest
     steps:
