@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[7864],{87864:function(e){e.exports=JSON.parse('{"Sync":"Amtawi","Photos":"Tiwlafin","Movies":"Isura","Folders":"Ikaramen","Favorites":"Ismenyifen","Default":"Lexṣas","Collections":"Tigrummiwin","Channels":"Ibuda","Albums":"Iseɣraz"}')}}]);
