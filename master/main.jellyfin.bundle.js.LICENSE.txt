@@ -49,7 +49,7 @@ object-assign
  * Date: 2021-03-02T17:08Z
  */
 
-/*! @license DOMPurify 2.3.4 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.4/LICENSE */
+/*! @license DOMPurify 2.3.10 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.10/LICENSE */
 
 /*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
 
