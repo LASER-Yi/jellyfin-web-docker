@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[57756],{77830:function(e){e.exports=JSON.parse('{"Album":"ალბომი","Alerts":"განგაშები","Absolute":"აბსოლუტური","Actor":"მსახიობი","Add":"დამატება","Aired":"გამოვიდა","Albums":"ალბომები","All":"ყველა"}')}}]);
