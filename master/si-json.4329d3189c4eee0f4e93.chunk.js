@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[237],{17936:function(e){e.exports=JSON.parse('{"Add":"එක් කරන්න","AllLanguages":"සියලු භාෂා"}')}}]);
