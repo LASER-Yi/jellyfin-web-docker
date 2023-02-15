@@ -10,13 +10,11 @@ env:
   BUILD_DIRECTORY: ./dist
   SKIP_PREPARE: 1
 
-x-all-branches: &all-branches ['master', 'release-10.8.z']
-
 jobs:
   Build:
     strategy:
       matrix:
-        branch: *all-branches
+        branch: ['master', 'release-10.8.z']
     concurrency: build-${{ matrix.branch }}
     runs-on: ubuntu-latest
     steps:
@@ -54,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: *all-branches
+        branch: ['master', 'release-10.8.z']
     concurrency: cf-${{ matrix.branch }}
     needs: ['Build']
     steps:
@@ -83,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: *all-branches
+        branch: ['master', 'release-10.8.z']
     concurrency: docker-${{ matrix.branch }}
     needs: ['Build']
     steps:
