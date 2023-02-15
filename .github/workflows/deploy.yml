@@ -54,7 +54,7 @@ jobs:
       matrix:
         branch: ['master', 'release-10.8.z', 'release-10.7.z']
     concurrency: cf-${{ matrix.branch }}
-    needs: ['build-${{ matrix.branch }}']
+    needs: ['Build']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -83,7 +83,7 @@ jobs:
       matrix:
         branch: ['master', 'release-10.8.z', 'release-10.7.z']
     concurrency: docker-${{ matrix.branch }}
-    needs: ['build-${{ matrix.branch }}']
+    needs: ['Build']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
