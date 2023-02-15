@@ -7,32 +7,27 @@ on:
     - cron: '0 0 */1 * *'
 
 env:
-  REPO_PATH: ./repo
-  BUILD_DIRECTORY: ./repo/dist
+  BUILD_DIRECTORY: ./dist
   SKIP_PREPARE: 1
 
 jobs:
-  build:
+  Build:
     strategy:
       matrix:
         branch: ['master', 'release-10.8.z', 'release-10.7.z']
-    concurrency: branch-${{ matrix.branch }}
+    concurrency: build-${{ matrix.branch }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Checkout Jellyfin-Web
         uses: actions/checkout@v2
         with:
           repository: jellyfin/jellyfin-web
           ref: ${{ matrix.branch }}
-          path: ${{ env.REPO_PATH }}
 
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
-          path: '${{ env.REPO_PATH }}/node_modules'
+          path: 'node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('${{ env.REPO_PATH }}/package-lock.json') }}
           restore-keys: ${{ runner.os }}-modules-no-hit
 
@@ -43,12 +38,32 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-        working-directory: ${{ env.REPO_PATH }}
 
       - name: Build
-        run: |
-          npm run build:production
-        working-directory: ${{ env.REPO_PATH }}
+        run: npm run build:production
+
+      - name: Upload Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-${{ matrix.branch }}
+          path: ${{ env.BUILD_DIRECTORY }}
+
+  Cloudflare:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: ['master', 'release-10.8.z', 'release-10.7.z']
+    concurrency: cf-${{ matrix.branch }}
+    needs: ['build-${{ matrix.branch }}']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Fetch Build
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-${{ matrix.branch }}
+          path: ${{ env.BUILD_DIRECTORY }}
 
       - name: Setting up Cloudflare
         run: |
@@ -61,6 +76,17 @@ jobs:
           folder: ${{ env.BUILD_DIRECTORY }}
           target-folder: ${{ matrix.branch }}
           clean: true
+
+  Docker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: ['master', 'release-10.8.z', 'release-10.7.z']
+    concurrency: docker-${{ matrix.branch }}
+    needs: ['build-${{ matrix.branch }}']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -75,6 +101,6 @@ jobs:
       - name: Build Docker Image 🐳
         run: docker buildx build
           --platform=linux/amd64,linux/arm/v7,linux/arm64
-          --tag ghcr.io/LASER-Yi/jellyfin-web:${{ matrix.branch }}
+          --tag ghcr.io/laser-yi/jellyfin-web:${{ matrix.branch }}
           --push
           .
