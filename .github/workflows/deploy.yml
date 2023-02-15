@@ -101,6 +101,6 @@ jobs:
       - name: Build Docker Image 🐳
         run: docker buildx build
           --platform=linux/amd64,linux/arm/v7,linux/arm64
-          --tag ghcr.io/laser-yi/jellyfin-web:${{ matrix.branch }}
+          --tag ghcr.io/laser-yi/jellyfin-web-statics:${{ matrix.branch }}
           --push
           .
