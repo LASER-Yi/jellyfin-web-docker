@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: 'node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('${{ env.REPO_PATH }}/package-lock.json') }}
+          key: ${{ runner.os }}-modules-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-modules-no-hit
 
       - name: Setup Node
