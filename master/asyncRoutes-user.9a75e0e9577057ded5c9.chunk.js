@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[48591],{2718:function(e,p,t){t.r(p),t.d(p,{ASYNC_USER_ROUTES:function(){return h}});var a=t(32776),h=[{path:"search.html",page:"search"},{path:"userprofile.html",page:"user/userprofile"},{path:"home.html",page:"home",type:a.L.Experimental},{path:"movies.html",page:"movies",type:a.L.Experimental}]}}]);
