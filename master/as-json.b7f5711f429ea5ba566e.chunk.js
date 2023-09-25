@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[4356],{48276:function(e){e.exports=JSON.parse('{"Actor":"অভিনেতা","Absolute":"নিৰংকুশ"}')}}]);
