@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[97033],{3722:function(c,e,n){n.r(e),n.d(e,{REDIRECTS:function(){return t}});var t=[{from:"mypreferencesquickconnect.html",to:"/quickconnect"}]}}]);

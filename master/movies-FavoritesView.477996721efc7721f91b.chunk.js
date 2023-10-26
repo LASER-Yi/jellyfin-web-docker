@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[76898,49213,16383,83264,64539,23783,36443,88963,64866],{40280:function(e,a,s){s.r(a);var t=s(24246),n=s(16918),r=(s(27378),s(50155)),i=s(13661);a.default=function(e){var a=e.parentId;return(0,t.jsx)(r.Z,{viewType:i.$.Favorites,parentId:a,itemType:[n.k.Movie],noItemsMessage:"MessageNoFavoritesAvailable"})}}}]);
