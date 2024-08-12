@@ -14,7 +14,7 @@ jobs:
   Build:
     strategy:
       matrix:
-        branch: ['master', 'release-10.8.z']
+        branch: ['master', 'release-10.8.z', 'release-10.9.z']
     concurrency: build-${{ matrix.branch }}
     runs-on: ubuntu-latest
     steps:
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ['master', 'release-10.8.z']
+        branch: ['master', 'release-10.8.z', 'release-10.9.z']
     concurrency: cf-${{ matrix.branch }}
     needs: ['Build']
     steps:
@@ -81,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ['master', 'release-10.8.z']
+        branch: ['master', 'release-10.8.z', 'release-10.9.z']
     concurrency: docker-${{ matrix.branch }}
     needs: ['Build']
     steps:
