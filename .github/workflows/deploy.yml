@@ -18,7 +18,7 @@ jobs:
     concurrency: build-${{ matrix.branch }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Jellyfin-Web
+      - name: Checkout jellyfin-web
         uses: actions/checkout@v4
         with:
           repository: jellyfin/jellyfin-web
@@ -43,7 +43,7 @@ jobs:
         run: npm run build:production
 
       - name: Upload Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist-${{ matrix.branch }}
           path: ${{ env.BUILD_DIRECTORY }}
@@ -107,6 +107,6 @@ jobs:
       - name: Build Docker Image 🐳
         run: docker buildx build
           --platform=linux/amd64,linux/arm/v7,linux/arm64
-          --tag ghcr.io/laser-yi/jellyfin-web-statics:${{ matrix.branch }}
+          --tag ghcr.io/laser-yi/jellyfin-web:${{ matrix.branch }}
           --push
           .
