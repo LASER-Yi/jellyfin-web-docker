@@ -19,20 +19,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Jellyfin-Web
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: jellyfin/jellyfin-web
           ref: ${{ matrix.branch }}
 
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: 'node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-modules-no-hit
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
@@ -57,10 +57,10 @@ jobs:
     needs: ['Build']
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Fetch Build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist-${{ matrix.branch }}
           path: ${{ env.BUILD_DIRECTORY }}
@@ -70,7 +70,7 @@ jobs:
           cp -r pages/. $BUILD_DIRECTORY
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.7
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: build
           folder: ${{ env.BUILD_DIRECTORY }}
@@ -86,23 +86,23 @@ jobs:
     needs: ['Build']
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Fetch Build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist-${{ matrix.branch }}
           path: ${{ env.BUILD_DIRECTORY }}
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup BuildX
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker Image 🐳
         run: docker buildx build
