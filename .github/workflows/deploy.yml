@@ -9,12 +9,13 @@ on:
 env:
   BUILD_DIRECTORY: ./dist
   SKIP_PREPARE: 1
+  JELLYFIN_BRANCHES: "['master', 'release-10.9.z', 'release-10.10.z']"
 
 jobs:
   Build:
     strategy:
       matrix:
-        branch: ['master', 'release-10.8.z', 'release-10.9.z']
+        branch: ${{ fromJson(vars.JELLYFIN_BRANCHES) }}
     concurrency: build-${{ matrix.branch }}
     runs-on: ubuntu-latest
     steps:
@@ -81,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ['master', 'release-10.8.z', 'release-10.9.z']
+        branch: ${{ fromJson(vars.JELLYFIN_BRANCHES) }}
     concurrency: docker-${{ matrix.branch }}
     needs: ['Build']
     steps:

@@ -6,8 +6,8 @@ A docker image of the [jellyfin-web](https://github.com/jellyfin/jellyfin-web) r
 
 A build will be triggered daily. The following jellyfin version will be built
 
-- 10.8.x
 - 10.9.x
+- 10.10.x
 - master
 
 # Credits
