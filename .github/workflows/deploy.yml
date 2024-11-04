@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ['master', 'release-10.8.z', 'release-10.9.z']
+        branch: ['master', 'release-10.9.z', 'release-10.10.z']
     concurrency: cf-${{ matrix.branch }}
     needs: ['Build']
     steps:
