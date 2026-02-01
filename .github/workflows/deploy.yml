@@ -24,17 +24,12 @@ jobs:
           repository: jellyfin/jellyfin-web
           ref: ${{ matrix.branch }}
 
-      - name: Cache node_modules
-        uses: actions/cache@v5
-        with:
-          path: 'node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('package-lock.json') }}
-          restore-keys: ${{ runner.os }}-modules-no-hit
-
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: lts/*
+          node-version-file: .nvmrc
+          cache: npm-{{ matrix.branch }}
+          check-latest: true
 
       - name: Install Dependencies
         run: npm install
