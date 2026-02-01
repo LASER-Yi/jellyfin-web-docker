@@ -28,11 +28,11 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
-          cache: npm-{{ matrix.branch }}
+          cache: npm
           check-latest: true
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci --no-audit
 
       - name: Build
         run: npm run build:production
