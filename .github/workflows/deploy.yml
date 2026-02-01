@@ -48,7 +48,7 @@ jobs:
     strategy:
       matrix:
         branch: ['master', 'release-10.10.z', 'release-10.11.z']
-    concurrency: cf-${{ matrix.branch }}
+    concurrency: cf-release # We only allow 1 job at a time, since this job updates the `release` branch
     needs: ['Build']
     steps:
       - name: Checkout
