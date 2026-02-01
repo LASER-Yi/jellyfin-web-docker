@@ -14,25 +14,25 @@ jobs:
   Build:
     strategy:
       matrix:
-        branch: ['master', 'release-10.9.z', 'release-10.10.z']
+        branch: ['master', 'release-10.10.z', 'release-10.11.z']
     concurrency: build-${{ matrix.branch }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout jellyfin-web
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: jellyfin/jellyfin-web
           ref: ${{ matrix.branch }}
 
       - name: Cache node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: 'node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-modules-no-hit
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
 
@@ -43,7 +43,7 @@ jobs:
         run: npm run build:production
 
       - name: Upload Build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dist-${{ matrix.branch }}
           path: ${{ env.BUILD_DIRECTORY }}
@@ -52,15 +52,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ['master', 'release-10.9.z', 'release-10.10.z']
+        branch: ['master', 'release-10.10.z', 'release-10.11.z']
     concurrency: cf-${{ matrix.branch }}
     needs: ['Build']
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Fetch Build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: dist-${{ matrix.branch }}
           path: ${{ env.BUILD_DIRECTORY }}
@@ -81,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ['master', 'release-10.9.z', 'release-10.10.z']
+        branch: ['master', 'release-10.10.z', 'release-10.11.z']
     concurrency: docker-${{ matrix.branch }}
     needs: ['Build']
     steps:
