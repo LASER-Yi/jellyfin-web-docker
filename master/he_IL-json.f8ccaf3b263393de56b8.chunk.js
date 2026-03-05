@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[54949],{63430:function(s){s.exports=JSON.parse('{"Collections":"אוספים","AllEpisodes":"כל הפרקים","Episode":"פרק","Episodes":"פרקים","AllLanguages":"כל השפות","Album":"אלבום"}')}}]);
