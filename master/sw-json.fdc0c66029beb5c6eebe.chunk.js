@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[17456],{36307:function(a){a.exports=JSON.parse('{"Absolute":"Kamili","Artists":"Wasanii","Actor":"Mwigizaji","Books":"Vitabu","Add":"Ongeza","Collections":"Mikusanyiko","AddToCollection":"Ongeza kwa mkusanyiko","HeaderContinueWatching":"Endelea Kutazama"}')}}]);
